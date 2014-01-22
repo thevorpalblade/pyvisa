@@ -32,7 +32,7 @@
 #    DEALINGS IN THE SOFTWARE.
 #
 
-from __future__ import division, unicode_literals, print_function, absolute_import
+
 
 from pyvisa import visa
 from pyvisa.visa import InvalidBinaryFormat

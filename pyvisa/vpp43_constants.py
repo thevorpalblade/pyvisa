@@ -17,7 +17,7 @@
     :license: MIT, see COPYING for more details.
 """
 
-from __future__ import division, unicode_literals, print_function, absolute_import
+
 
 
 # _to_int() is necessary because the VISA specification is flawed: It defines

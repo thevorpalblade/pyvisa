@@ -11,7 +11,7 @@
     :license: MIT, see COPYING for more details.
 """
 
-from __future__ import division, unicode_literals, print_function, absolute_import
+
 
 VI_SPEC_VERSION = 0x00300000
 
@@ -26,7 +26,6 @@ if os.name == 'nt':
 else:
     from ctypes import CFUNCTYPE as FUNCTYPE
 
-from .visa_exceptions import *
 from .visa_messages import completion_and_error_messages
 
 from .vpp43_constants import *
@@ -60,8 +59,8 @@ __all__ = ["visa_library", "get_status"] + visa_functions
 # exported symbols
 from . import visa_exceptions
 from . import vpp43_constants
-__all__.extend([name for name in vpp43_constants.__dict__.keys() +
-                visa_exceptions.__dict__.keys() if name[0] != '_'])
+__all__.extend([name for name in list(vpp43_constants.__dict__.keys()) +
+                list(visa_exceptions.__dict__.keys()) if name[0] != '_'])
 
 
 # load VISA library
@@ -949,7 +948,7 @@ def terminate(vi, degree, job_id):
 
 
 def uninstall_handler(vi, event_type, handler, user_handle=None):
-    for i in xrange(len(handlers)):
+    for i in range(len(handlers)):
         element = handlers[i]
         if element[0] is handler and element[1] is user_handle:
             del handlers[i]

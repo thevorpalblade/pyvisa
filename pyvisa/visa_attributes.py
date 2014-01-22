@@ -11,7 +11,7 @@
     :license: MIT, see COPYING for more details.
 """
 
-from __future__ import division, unicode_literals, print_function, absolute_import
+
 
 from . import vpp43_constants as _constants
 from .vpp43_types import *
@@ -86,7 +86,7 @@ class _AttrBitSet(_AttrSet):
 
     def tostring(self, bitfield):
         s = ''
-        for bit in self.namedict.keys():
+        for bit in list(self.namedict.keys()):
             if bit & bitfield:
                 if not s:
                     s = self.namedict[bit]
@@ -359,7 +359,7 @@ attributes_s = {
     'VI_ATTR_STATUS': \
     viAttrInfo(
     viRO, None, ViStatus,
-    _AttrSet(*map(lambda x: x[0], completion_and_error_messages.values())),
+    _AttrSet(*[x[0] for x in list(completion_and_error_messages.values())]),
              # list of status codes, FIXME
     'return code of asynchronous operation that has completed',
     ""
@@ -397,7 +397,7 @@ attributes_s = {
 
 
 attributes = {}  # dict with attribute value (not name) as key
-for name, info in attributes_s.iteritems():
+for name, info in attributes_s.items():
     value = _constants.__dict__[name]  # convert attribute name to value
     info.attribute_name = name
     info.attribute_value = value

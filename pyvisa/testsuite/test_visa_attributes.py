@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
 
-from __future__ import division, unicode_literals, print_function, absolute_import
+
 
 from pyvisa import visa_attributes
 import pytest
 
 def test_attributes():
-    for value, info in visa_attributes.attributes.items():
+    for value, info in list(visa_attributes.attributes.items()):
         assert value == info.attribute_value
         assert info.attribute_name != ''
         assert repr(info) != ''

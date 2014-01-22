@@ -31,7 +31,7 @@
     :license: MIT, see COPYING for more details.
 """
 
-from __future__ import division, unicode_literals, print_function, absolute_import
+
 
 import re
 import time
@@ -57,7 +57,7 @@ def _removefilter(action, message="", category=Warning, module="", lineno=0,
     new_filters = []
     for filter in warnings.filters:
         equal = 1
-        for j in xrange(len(item)):
+        for j in range(len(item)):
             if item[j] != filter[j]:
                 equal = 0
                 break
@@ -69,14 +69,14 @@ def _removefilter(action, message="", category=Warning, module="", lineno=0,
 
 
 def _warn_for_invalid_keyword_arguments(keyw, allowed_keys):
-    for key in keyw.iterkeys():
+    for key in keyw.keys():
         if key not in allowed_keys:
             warnings.warn('Keyword argument "%s" unknown' % key, stacklevel=3)
 
 
 def _filter_keyword_arguments(keyw, selected_keys):
     result = {}
-    for key, value in keyw.iteritems():
+    for key, value in keyw.items():
         if key in selected_keys:
             result[key] = value
     return result
@@ -254,7 +254,7 @@ def get_instruments_list(use_aliases=True):
     find_list, return_counter, instrument_description = \
         vpp43.find_resources(resource_manager.session, "?*::INSTR")
     resource_names.append(instrument_description)
-    for i in xrange(return_counter - 1):
+    for i in range(return_counter - 1):
         resource_names.append(vpp43.find_next(find_list))
     # Phase two: If available and use_aliases is True, substitute the alias.
     # Otherwise, truncate the "::INSTR".
@@ -448,7 +448,7 @@ class Instrument(ResourceTemplate):
         if not format:
             format = self.values_format
         if format & 0x01 == ascii:
-            float_regex = re.compile(ur"[-+]?(?:\d+(?:\.\d*)?|\d*\.\d+)"
+            float_regex = re.compile(r"[-+]?(?:\d+(?:\.\d*)?|\d*\.\d+)"
                                      "(?:[eE][-+]?\d+)?")
             return [float(raw_value) for raw_value in
                     float_regex.findall(self.read().decode('ascii'))]
