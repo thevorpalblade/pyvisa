@@ -58,8 +58,8 @@ __all__ = ["visa_library", "get_status"] + visa_functions
 
 # Add all symbols from #visa_exceptions# and #vpp43_constants# to the list of
 # exported symbols
-import visa_exceptions
-import vpp43_constants
+from . import visa_exceptions
+from . import vpp43_constants
 __all__.extend([name for name in vpp43_constants.__dict__.keys() +
                 visa_exceptions.__dict__.keys() if name[0] != '_'])
 

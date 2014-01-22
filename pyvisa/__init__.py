@@ -19,7 +19,7 @@ import sys
 import pkg_resources
 import subprocess
 import ConfigParser
-import vpp43
+from . import vpp43
 
 __version__ = "unknown"
 try:  # try to grab the commit version of our package
