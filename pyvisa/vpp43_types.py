@@ -17,10 +17,18 @@
 """
 
 
-
 # ctypes and os shouldn't be re-exported.
 import ctypes as _ctypes
 import os as _os
+
+class Asciifier(_ctypes.c_char_p):
+    @classmethod
+    def from_param(cls, value):
+        if isinstance(value, bytes):
+            return cls(value)
+        else:
+            return cls(value.encode('ascii'))
+
 
 
 # Part One: Type Assignments for VISA and Instrument Drivers, see spec table
@@ -56,7 +64,8 @@ ViBuf         = ViPByte
 ViPBuf        = ViBuf
 ViABuf        = _ctypes.POINTER(ViBuf)
 
-ViString      = _ctypes.c_char_p  # ViPChar in the spec
+#ViString      = _ctypes.c_char_p  # ViPChar in the spec
+ViString      = Asciifier
 ViPString     = _ctypes.c_char_p  # ViPChar in the spec
 ViAString     = _ctypes.POINTER(ViString)
 

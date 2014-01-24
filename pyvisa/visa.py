@@ -98,7 +98,7 @@ class ResourceTemplate(object):
     See :class:Instrument for a detailed description.
     """
 
-    import vpp43 as _vpp43  # Needed for finishing the object safely.
+    from . import vpp43 as _vpp43  # Needed for finishing the object safely.
 
     #: VISA handle of the resource"
     vi = None
@@ -380,10 +380,17 @@ class Instrument(ResourceTemplate):
 
         :param message: the string message to be sent.
         """
+        
+        #TODO fix this shit
+        print(self.__term_chars)
+        if isinstance(self.__term_chars, bytes):
+            self.__term_chars = self.__term_chars.decode('utf-8')
+        if isinstance(message, bytes):
+            message = message.decode("utf-8")
 
         if self.__term_chars and not message.endswith(self.__term_chars):
             message += self.__term_chars
-        elif self.__term_chars is None and not message.endswith(CR + LF):
+        elif self.__term_chars is None and not message.endswith('\n\r'):
             message += CR + LF
 
         vpp43.write(self.vi, message)
